@@ -76,29 +76,41 @@ public class MovementController : MonoBehaviour
 
     private void UpdateState()
     {
+        int previousState;
         if (movement.x > 0)
         {
+            previousState = (int)CharStates.walkEast;
             animator.SetInteger(animationState, (int)CharStates.walkEast);
             Debug.Log("walk east");
         }
         else if (movement.x < 0)
         {
+            previousState = (int)CharStates.walkWest;
             animator.SetInteger(animationState, (int)CharStates.walkWest);
             Debug.Log("walk west");
         }
         else if (movement.y > 0)
         {
+            previousState = (int)CharStates.walkNorth;
             animator.SetInteger(animationState, (int)CharStates.walkNorth);
             Debug.Log("walk north");
         }
         else if (movement.y < 0)
         {
+            previousState = (int)CharStates.walkSouth;
             animator.SetInteger(animationState, (int)CharStates.walkSouth);           
             Debug.Log("walk south");
         }
         else
         {
-            animator.SetInteger(animationState, (int)CharStates.idlesouth);
+            if(previousState == (int)ChartStates.walkNorth)
+            {
+                animator.SetInteger(animationState, (int)CharStates.idlenorth);
+            }
+            else
+            {
+                animator.SetInteger(animationState, (int)CharStates.idlesouth);
+            }
             Debug.Log("Idle");
         }
     }
